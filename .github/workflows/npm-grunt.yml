@@ -12,13 +12,18 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [14.x, 16.x, 18.x]
+        # Use the latest version of Node.js, plus the 3 most recent LTS lines
+        node-version:
+          - latest
+          - lts/*
+          - lts/-1
+          - lts/-2 # Probably EOL depending on release schedules, but still good to test
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
 
     - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node-version }}
 
@@ -26,4 +31,4 @@ jobs:
       run: |
         npm install
         grunt
-        
+
