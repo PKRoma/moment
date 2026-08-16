@@ -84,7 +84,7 @@ declare namespace moment {
       isFuture: boolean
     ): string;
     pastFuture(diff: number, absRelTime: string): string;
-    set(config: Object): void;
+    set(config: LocaleSpecification): void;
 
     months(): string[];
     months(m: Moment, format?: string): string;
@@ -693,7 +693,11 @@ declare namespace moment {
     zone(): number;
     zone(b: number | string): Moment;
     utcOffset(): number;
-    utcOffset(b: number | string, keepLocalTime?: boolean): Moment;
+    utcOffset(
+      b: number | string,
+      keepLocalTime?: boolean,
+      keepMinutes?: boolean
+    ): Moment;
     isUtcOffset(): boolean;
     daysInMonth(): number;
     isDST(): boolean;
