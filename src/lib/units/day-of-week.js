@@ -36,7 +36,7 @@ addFormatToken('E', 0, 0, 'isoWeekday');
 // PARSING
 
 addRegexToken('d', match1to2);
-addRegexToken('e', match1to2);
+addRegexToken('e', match1to2LocaleWeekday);
 addRegexToken('E', match1to2);
 addRegexToken('dd', function (isStrict, locale) {
     return locale.weekdaysMinRegex(isStrict);
@@ -79,6 +79,12 @@ function parseWeekday(input, locale) {
     }
 
     return null;
+}
+
+function match1to2LocaleWeekday() {
+    // Prefer the single digit emitted by e before a compact HHmm value, while
+    // retaining the legacy two-digit parsing used by padded weekday inputs.
+    return /[0-6](?=\d{4}(?!\d))|\d\d?/;
 }
 
 function parseIsoWeekday(input, locale) {
